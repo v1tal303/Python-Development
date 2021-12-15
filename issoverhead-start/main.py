@@ -31,8 +31,8 @@ def sendMessage(message):
         server.sendmail(sender, receiver, message.as_string())
 
 
-MY_LAT = 52.435928 # Your latitude
-MY_LONG = -2.086180 # Your longitude
+MY_LAT = # Your latitude
+MY_LONG = # Your longitude
 
 
 response = requests.get(url="http://api.open-notify.org/iss-now.json")
@@ -43,7 +43,6 @@ iss_latitude = float(data["iss_position"]["latitude"])
 iss_longitude = float(data["iss_position"]["longitude"])
 
 #Your position is within +5 or -5 degrees of the ISS position.
-
 
 parameters = {
     "lat": MY_LAT,
