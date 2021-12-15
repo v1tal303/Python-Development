@@ -8,8 +8,8 @@ from email.mime.text import MIMEText
 
 port = 2525
 smtp_server = "smtp.mailtrap.io"
-login = "e47073c2ec7861"
-password = "b9ca44fd40fe2f"
+login = "login"
+password = "password"
 
 sender = "from@smtp.mailtrap.io"
 receiver = "to@smtp.mailtrap.io"
