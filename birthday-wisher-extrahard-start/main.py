@@ -31,7 +31,6 @@ def sendMessage(message):
         server.login(login, password)
         server.sendmail(sender, receiver, message.as_string())
 
-
 # Time setup - get today's month and day
 
 now = dt.datetime.now()
