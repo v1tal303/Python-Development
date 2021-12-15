@@ -72,5 +72,4 @@ right_button = tkinter.Button(image=right_img, bg=BACKGROUND_COLOR, highlightthi
 right_button.grid(column=1, row=2)
 
 
-
 window.mainloop()
