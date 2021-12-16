@@ -16,7 +16,6 @@ twilio_phone_number = config.twilio_phone_num
 my_phone_number = config.my_phone_num
 
 
-
 parameters = {
     "lat": my_lat,
     "lon": my_lon,
