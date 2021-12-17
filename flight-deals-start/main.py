@@ -8,70 +8,41 @@ import notification_manager
 
 #This file will need to use the DataManager,FlightSearch, FlightData, NotificationManager classes to achieve the program requirements.
 
-
-# sheet_data = data_manager.DataManager().get_destination_data()
-# print(sheet_data)
-
-
-# flight_search = flight_search.FlightSearch()
-# destination_code = flight_search.get_destination_code()
-
-#
-# sheets = data_manager.DataManager()
-# sheets.update_destination_codes()
-#
 codes = ['PAR', 'BER', 'TYO', 'SYD', 'IST', 'KUL', 'NYC', 'SFO', 'CPT']
 
+sheet_data = data_manager.DataManager().get_destination_data()
+destination_cities = []
+destination_lowest_price = []
+position = -1
+print(sheet_data)
 
+for i in sheet_data:
+    destination_cities.append(sheet_data[sheet_data.index(i)]["city"])
+    destination_lowest_price.append(sheet_data[sheet_data.index(i)]["lowestPrice"])
+print(destination_cities)
+print(destination_lowest_price)
 
-flight_ID = config.FLIGHT_ID
-flight_KEY = config.FLIGHT_KEY
-flight_END = config.FLIGH_ENDPOINT
+destination_codes = flight_search.FlightSearch().get_destination_code(destination_cities)
 
-flight_header = {
-    "apikey": flight_KEY,
-    "accept": "application/json"
-}
+print(destination_codes)
 
-flight_params = {
-    "fly_from": "LON",
-    "fly_to": "PAR",
-    "dateFrom": "17/12/2021",
-    "dateTo": "15/06/2022",
-    "nights_in_dst_from": 7,
-    "nights_in_dst_to": 28,
-    "curr": "GBP",
-}
+flight_data = flight_data.FlightData().lowest_prices(destination_codes)
 
-# response = requests.get(url=f"{flight_END}/v2/search", params=flight_params, headers=flight_header)
-#
-# flight_data = response.json()
+print(flight_data)
 
-# response = requests.get(url=f"{flight_END}/v2/search", params=flight_params, headers=flight_header)
-#
-#
-# data = response.text
-#
-# f = open("text.txt", "w")
-# f.write(data)
-# f.close()
-# print(response.text)
+# TODO 1: Compare list of lowest prices to the flight prices and return flights which are cheaper
 
-# for i in codes:
-#     flight_params = {
-#         "fly_from": "LON",
-#         "fly_to": i,
-#         "dateFrom": "17/12/2021",
-#         "dateTo": "18/12/2021",
-#     }
-#     response = requests.get(url=f"{flight_END}/v2/search", params=flight_params, headers=flight_header)
-#     flight_data = response.json()
-#     lowest_price = flight_data["data"][0]["price"]
-#
-#     print(f"The price for destination {i} is {lowest_price}")
-#
-#
-#
-flight_data = flight_data.FlightData().lowest_prices()
+# TODO 2: Send out a txt message with the lower prices
 
-message_text=notification_manager.NotificationManager().send_message(flight_data)
+lower_price = {}
+
+for key in flight_data:
+    if flight_data[key]["price"] < destination_lowest_price[position+1]:
+        print(flight_data)
+
+print(lower_price)
+
+#
+# flight_data = flight_data.FlightData().lowest_prices()
+#
+# message_text=notification_manager.NotificationManager().send_message(flight_data)

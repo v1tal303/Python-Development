@@ -38,8 +38,8 @@ class FlightSearch:
         self.codes = []
 
 
-    def get_destination_code(self):
-        for i in f_city:
+    def get_destination_code(self, cities):
+        for i in cities:
             response = requests.get(url=f"{flight_END}/locations/query", params={"term": i, "location_types": "city", },
                                     headers=flight_header)
             self.AITA_codes = response.json()["locations"][0]["code"]

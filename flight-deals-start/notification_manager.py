@@ -1,6 +1,13 @@
 import requests
 import config
 import datetime as dt
+from twilio.rest import Client
+
+auth_token = config.twilio_auth_token
+account_sid = config.twilio_account_sid
+twilio_phone_number = config.twilio_phone_num
+my_phone_number = config.my_phone_num
+client = Client(account_sid, auth_token)
 
 
 class NotificationManager:
@@ -25,5 +32,11 @@ class NotificationManager:
             self.code_to = data[key]["to_airport"]
             self.from_date = (data[key]["when"]).split("T")[0]
             self.return_date = data[key]["return"].split("T")[0]
-            message = f"Low price alert! Only £{self.price} to fly from {self.city_from}-{self.code_from} to {self.city_to}-{self.code_to}, from {self.from_date} to {self.return_date}"
-            print(message)
+            message_text = f"Low price alert! Only £{self.price} to fly from {self.city_from}-{self.code_from} to {self.city_to}-{self.code_to}, from {self.from_date} to {self.return_date}"
+            # message = client.messages \
+            #     .create(
+            #     body=message_text,
+            #     from_=twilio_phone_number,
+            #     to=my_phone_number
+            # )
+            print(message_text)

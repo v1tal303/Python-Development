@@ -19,7 +19,7 @@ class DataManager:
     def __init__(self):
         self.destination_data = {}
         self.flight_search = flight_search.FlightSearch()
-        self.destination_code = self.flight_search.get_destination_code()
+        self.destination_code = {}
 
 
     def get_destination_data(self):
@@ -29,6 +29,7 @@ class DataManager:
         return self.destination_data
 
     def update_destination_codes(self):
+        self.destination_code = self.flight_search.get_destination_code()
         for i in self.destination_code:
             new_data = {
                 "price": {
@@ -36,5 +37,4 @@ class DataManager:
                 }
             }
             response = requests.put(url=f"{SHEETY_ENDPOINT}/{self.destination_code.index(i)+2}", json=new_data)
-
 

@@ -27,13 +27,12 @@ class FlightData:
         self.today = self.now.strftime("%d/%m/%Y")
         self.future = (self.now + dt.timedelta(days=6 * 30)).strftime("%d/%m/%Y")
         self.flight_params = {}
-        self.codes = flight_search.FlightSearch().get_destination_code()
+        # self.codes = flight_search.FlightSearch().get_destination_code()
         self.flight_info = {}
 
 
-    def lowest_prices(self):
-        print(self.codes)
-        for i in self.codes:
+    def lowest_prices(self, codes):
+        for i in codes:
             self.flight_params = {
                 "fly_from": "LON",
                 "fly_to": i,
