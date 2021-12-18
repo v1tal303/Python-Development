@@ -41,7 +41,6 @@ for key in flight_data:
         print(flight_data)
 
 print(lower_price)
-
 #
 # flight_data = flight_data.FlightData().lowest_prices()
 #
