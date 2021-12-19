@@ -23,20 +23,37 @@ class NotificationManager:
         self.return_date = ""
 
     def send_message(self, data):
-
-        for key in data:
-            self.price = data[key]["price"]
-            self.city_from = data[key]["from_city"]
-            self.code_from = data[key]["from_airport"]
-            self.city_to = data[key]["to_city"]
-            self.code_to = data[key]["to_airport"]
-            self.from_date = (data[key]["when"]).split("T")[0]
-            self.return_date = data[key]["return"].split("T")[0]
+            self.price = data["price"]
+            self.city_from = data["from_city"]
+            self.code_from = data["from_airport"]
+            self.city_to = data["to_city"]
+            self.code_to = data["to_airport"]
+            self.from_date = (data["when"]).split("T")[0]
+            self.return_date = data["return"].split("T")[0]
             message_text = f"Low price alert! Only £{self.price} to fly from {self.city_from}-{self.code_from} to {self.city_to}-{self.code_to}, from {self.from_date} to {self.return_date}"
-            # message = client.messages \
-            #     .create(
-            #     body=message_text,
-            #     from_=twilio_phone_number,
-            #     to=my_phone_number
-            # )
+            message = client.messages \
+                .create(
+                body=message_text,
+                from_=twilio_phone_number,
+                to=my_phone_number
+            )
             print(message_text)
+
+        # for key in data:
+        #     self.price = data[key]["price"]
+        #     self.city_from = data[key]["from_city"]
+        #     self.code_from = data[key]["from_airport"]
+        #     self.city_to = data[key]["to_city"]
+        #     self.code_to = data[key]["to_airport"]
+        #     self.from_date = (data[key]["when"]).split("T")[0]
+        #     self.return_date = data[key]["return"].split("T")[0]
+        #     message_text = f"Low price alert! Only £{self.price} to fly from {self.city_from}-{self.code_from} to {self.city_to}-{self.code_to}, from {self.from_date} to {self.return_date}"
+        #     # message = client.messages \
+        #     #     .create(
+        #     #     body=message_text,
+        #     #     from_=twilio_phone_number,
+        #     #     to=my_phone_number
+        #     # )
+        #     print(message_text)
+
+
