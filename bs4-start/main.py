@@ -1,32 +1,37 @@
 from bs4 import BeautifulSoup
+import requests
 
-with open("website.html", encoding="utf-8") as file:
-    contents = file.read()
+response = requests.get ("https://news.ycombinator.com/news")
 
-soup = BeautifulSoup(contents, "html.parser")
+yc_web_page = response.text
 
-anchor_tags = soup.find_all(name="a")
+soup = BeautifulSoup(yc_web_page, "html.parser")
 
-for tag in anchor_tags:
-    # print(tag.getText())
-    print(tag.get("href"))
+articles = soup.find_all(name="a", class_="titlelink")
+article_texts = []
+article_links = []
+for article_tag in articles:
+    text = article_tag.getText()
+    article_texts.append(text)
+    link = article_tag.get("href")
+    article_links.append(link)
 
 
-heading = soup.find(name="h1", id="name")
 
-print(heading)
+article_upvotes = [int(score.getText().split()[0]) for score in soup.find_all(name="span", class_="score")]
 
-section_heading = soup.find(name="h3", class_="heading")
+print(article_texts)
+print(article_links)
+print(article_upvotes)
 
-print(section_heading.name)
-print(section_heading.get("class"))
-print(section_heading.getText())
+largest_value = article_upvotes.index(max(article_upvotes))
+print(largest_value)
 
-company_url = soup.select_one(selector="p a")
-name = soup.select_one(selector="#name")
-print(company_url)
-print(name)
+largest_index = article_upvotes.index(max(article_upvotes))
+print(largest_index)
 
-headings = soup.select(".heading")
 
-print(headings)
+print(article_texts[largest_index])
+print(article_links[largest_index])
+print(article_upvotes[largest_index])
+
