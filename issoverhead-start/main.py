@@ -6,13 +6,8 @@ import time
 
 # Default email setup - specific for mailtrap.io due to MIMEtext setup
 
-port = 2525
-smtp_server = "smtp.mailtrap.io"
-login = "login"
-password = "password"
 
-sender = "from@smtp.mailtrap.io"
-receiver = "to@smtp.mailtrap.io"
+
 
 # Email class setup
 
